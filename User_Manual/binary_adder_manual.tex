@@ -1,0 +1,86 @@
+\documentclass[11pt,oneside]{article}
+\input{preamble}
+\graphicspath{{figures/}} 				% Needed if there is a dedicated folder for figures
+
+% Metadata
+\title{4-bit Binary Adder PCB for Soldering Workshop}
+\author{Purdue IEEE Student Branch \\ Manual Editor: Michael R. Hayashi}
+\date{22 October 2017}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Using Your Binary Adder}
+In order to use your 4-bit binary adder printed circuit board (PCB), insert 3x AAA batteries into the battery holder with the proper orientation. The onboard LMS8117 linear regulator will produce $V_{CC} = 3.3 \, \mathrm{V_{DC}}$ for all onboard components even as the batteries begin to loose charge.
+
+The part at \textit{SW1} is a dual in-line package (DIP) switch that allows you to control the value of 8 digital inputs. The digital input is ON (logic high) if the corresponding LED is illuminated, or the digital input is OFF (logic low) if the corresponding LED is dark. Table \ref{tab:dig_input} shows what each switch controls, where the direction is given when reading \textit{SW1} on the PCB.
+
+\begin{table}[!htb]
+	\centering
+	\caption{Digital Inputs on \textit{SW1}}
+	\begin{tabular}{l | c | l}
+		\hline
+		DIP Switch \# & Signal Name & Description \\
+		\hline
+		$1$ (rightmost) & \textit{A0} & Least-significant bit (LSB) or one's place of binary number \textit{A} \\
+		$2$ & \textit{A1} & Second bit or two's place of binary number \textit{A} \\
+		$3$ & \textit{A2} & Third bit or four's place of binary number \textit{A} \\
+		$4$ & \textit{A3} & Most-significant bit (MSB) or eight's place of binary number \textit{A}  \\
+		$5$ & \textit{B0} & Least-significant bit (LSB) or one's place of binary number \textit{B} \\
+		$6$ & \textit{B1} & Second bit or two's place of binary number \textit{B} \\
+		$7$ & \textit{B2} & Third bit or four's place of binary number \textit{B} \\
+		$8$ (leftmost) & \textit{B3} & Most-significant bit (MSB) or eight's place of binary number \textit{B} \\
+		\hline
+	\end{tabular}
+	\label{tab:dig_input}
+\end{table}
+
+The onboard 74HC283 integrated circuit (IC) performs the binary addition of the two numbers \textit{A} and \textit{B} to produce the sum \textit{S}. Examples:
+\begin{align*}
+	A = 0011_{2} = 3_{10} \text{ and } B = 1010_{2} = 10_{10} &\text{ has a result of } S = 1101_{2} = 13_{10} \\
+	A = 1001_{2} = 9_{10} \text{ and } B = 0101_{2} = 5_{10} &\text{ has a result of } S = 1110_{2} = 14_{10} \\
+	A = 1010_{2} = 10_{10} \text{ and } B = 1011_{2} = 11_{10} &\text{ has a result of } S = 10101_{2} = 21_{10}
+\end{align*}
+For the situation in the third example where the resulting sum is more than 4 bits long, the outgoing carry flag \textit{COUT} is set and the corresponding LED illuminated. The digital output for each bit is ON (logic high) if the corresponding LED is illuminated, or the digital input is OFF (logic low) if the corresponding LED is dark. Table \ref{tab:dig_output} gives the signal names for the outputs of the IC.
+
+\begin{table}[!htb]
+	\centering
+	\caption{Digital Outputs of Binary Adder IC}
+	\begin{tabular}{c | l}
+		\hline
+		Signal Name & Description \\
+		\hline
+		\textit{S0} & Least-significant bit (LSB) or one's place of binary sum \textit{S} \\
+		\textit{S1} & Second bit or two's place of binary sum \textit{S} \\
+		\textit{S2} & Third bit or four's place of binary sum \textit{S} \\
+		\textit{S3} & Most-significant bit (MSB) or eight's place of binary sum \textit{S}  \\
+		\textit{COUT} & Outgoing carry flag or sixteen's place of binary sum \textit{S} \\
+		\hline
+	\end{tabular}
+	\label{tab:dig_output}
+\end{table}
+
+It is possible to chain together multiple 4-bit binary adder PCBs to achieve a $4N$-bit binary adder, where $N$ is the number of circuit boards used. To achieve this, attach the pin \textit{COUT} on header pin \textit{J1} of the board to contain the lower-order bits with a jumper wire to pin \textit{CIN} on header pint \textit{J1} of the board to contain the higher-order bits. In doing so, interpret the bits of \textit{A}, \textit{B}, and \textit{S} on the higher-order board as each being multiplied by $2^{4k}$, where $k = 0, 1, 2, \ldots, N - 1$ is the number of the board being used. For example, using $N = 2$ boards produces an 8-bit binary adder with the $k = 0$ board containing bits representing $0000_{2} = 0_{10}$ through $1111_{2} = 15_{10}$ and \text{COUT} of that board being the same as the LSB of the next board and the $k = 1$ board containing bits representing $0000_{2} = 0_{10}$ or $0001 0000_{2} = 16_{10}$ through $1111 0000_{2} = 240_{10}$ with \textit{COUT} of that board being two hundred fifty-six's place.
+
+The \href{https://cdn.hackaday.io/files/8121347448864/74HC283.pdf}{data sheet for the 74HC283 IC} is available online. Those looking for the digital logic underlying the binary adder should find \href{http://www.electronics-tutorials.ws/combination/comb_7.html}{references online}.
+
+
+\section{Troubleshooting}
+\begin{itemize}
+	\color{IEEE-red}{\item \textbf{LEDs do not turn on:}} \color{black}{Check to make sure that the batteries have a healthy charge and are inserted properly into the battery holder. If the problem persists, check the soldering of the battery holder, linear regulator, all capacitors, resistors, and LEDs. Ensure that the LED is inserted in the proper orientation. At this point, $V_{CC} = 3.3 \, \mathrm{V_{DC}}$ should be generated. A voltmeter may be used to verify the voltage. Should the issue still present itself, then check to make sure the DIP switch is undamaged and replace if necessary.}
+	\color{IEEE-red}{\item \textbf{A through-hole component wobbles:}} \color{black}{A minuscule amount of travel is acceptable for through-hole electromechanical components such as battery holders, headers, and switches. Vibrating or unstable components should be soldered again.}
+	\color{IEEE-red}{\item \textbf{A resistor or capacitor has cracked or separated from the PCB:}} \color{black}{Disconnect the batteries immediately, remove any component fragments and residual solder, and solder on a replacement component.}
+	\color{IEEE-red}{\item \textbf{One of the eight DIP switches is stuck:}} \color{black}{A small force is needed to toggle a DIP switch normally. If a switch becomes stuck in position, attempt to coax a change with a pair of pliers. Replace the component if necessary.}
+	\color{IEEE-red}{\item \textbf{LEDs for \textit{A} and \textit{B} change but not for \textit{S}:}} \color{black}{Check that the orientation of the LEDs is correct. Look for imperfect connections between the pins of the 74HC283 IC and the pads underneath.}
+	\color{IEEE-red}{\item \textbf{Component smokes or catches fire:}} \color{black}{Extinguish any flames and abide by proper fire containment protocol for your facility. Inspect the board for damage and remove any charred or ruined components. Replace and repair if possible.}
+	\color{IEEE-red}{\item \textbf{Linear regulator becomes burning hot:}} \color{black}{Linear regulators are normally low-efficiency devices that produce substantial heat. If the linear regulator IC becomes burning hot to the touch, this is a sign of overloading or a short circuit. Disconnect the batteries immediately, and use an ohmmeter to check for a low-resistance connection between \textit{VCC} and \textit{GND}. If a short circuit or near short circuit exists between power and ground, remove components incrementally to identify the location of the bad connection. Repair if possible.}
+\end{itemize}
+
+
+\section*{Aknowledgements}
+Kyle Rakos (\href{mailto:rakoskr6@gmail.com}{rakoskr6@gmail.com}) for designing this printed circuit board for soldering instruction
+
+Justin Joco (\href{mailto:jjoco@purdue.edu}{jjoco@purdue.edu}) for his organization of the IEEE Learning Committee that enables workshops on soldering and other employable skills
+
+\end{document}
