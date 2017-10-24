@@ -12,7 +12,11 @@
 \tableofcontents
 
 \section{Using Your Binary Adder}
-In order to use your 4-bit binary adder printed circuit board (PCB), insert 3x AAA batteries into the battery holder with the proper orientation. The onboard LMS8117 linear regulator will produce $V_{CC} = 3.3 \, \mathrm{V_{DC}}$ for all onboard components even as the batteries begin to loose charge.
+\label{sec:using}
+
+\textbf{\color{IEEE-red}{Before powering on your populated printed circuit board}}, use an ohmmeter to ensure that no short circuit or low-resistance connection exists between power (either the battery voltage or regulated bus voltage) and ground. See Section \ref{sec:trouble} for resolving any problems with the supply traces before supplying power to the circuit.
+
+In order to use your 4-bit binary adder printed circuit board (PCB), insert 3x AAA batteries into the battery holder with the proper orientation. The onboard LMS8117 linear regulator will take the battery voltage $V_{CC} \approx 4.5 \, \mathrm{V_{DC}}$ and produce $V_{bus} = 3.3 \, \mathrm{V_{DC}}$ for all onboard components even as the batteries begin to loose charge.
 
 The part at \textit{SW1} is a dual in-line package (DIP) switch that allows you to control the value of 8 digital inputs. The digital input is ON (logic high) if the corresponding LED is illuminated, or the digital input is OFF (logic low) if the corresponding LED is dark. Table \ref{tab:dig_input} shows what each switch controls, where the direction is given when reading \textit{SW1} on the PCB.
 
@@ -67,18 +71,21 @@ The \href{https://cdn.hackaday.io/files/8121347448864/74HC283.pdf}{data sheet fo
 
 
 \section{Troubleshooting}
+\label{sec:trouble}
+
 \begin{itemize}
-	\color{IEEE-red}{\item \textbf{LEDs do not turn on:}} \color{black}{Check to make sure that the batteries have a healthy charge and are inserted properly into the battery holder. If the problem persists, check the soldering of the battery holder, linear regulator, all capacitors, resistors, and LEDs. Ensure that the LED is inserted in the proper orientation. At this point, $V_{CC} = 3.3 \, \mathrm{V_{DC}}$ should be generated. A voltmeter may be used to verify the voltage. Should the issue still present itself, then check to make sure the DIP switch is undamaged and replace if necessary.}
+	\color{IEEE-red}{\item \textbf{Low resistance or short circuit between \textit{VCC} and \textit{GND} or between \textit{3.3V} and \textit{GND}:}} \color{black}{An ohmmeter can reveal problems energizing the circuit before batteries are connected. If a short circuit or near short circuit exists between power and ground, remove components incrementally to identify the location of the bad connection. Stray solder or flux can cause short circuit as well. Solder components again, clean PCB, and check traces with an ohmmeter before supplying any power.}
+	\color{IEEE-red}{\item \textbf{LEDs do not turn on:}} \color{black}{Check to make sure that the batteries have a healthy charge and are inserted properly into the battery holder. If the problem persists, check the soldering of the battery holder, linear regulator, all capacitors, resistors, and LEDs. Ensure that the LED is inserted in the proper orientation. At this point, $V_{bus} = 3.3 \, \mathrm{V_{DC}}$ should be generated. A voltmeter may be used to verify the voltage. Should the issue still present itself, then check to make sure the DIP switch is undamaged and replace if necessary.}
 	\color{IEEE-red}{\item \textbf{A through-hole component wobbles:}} \color{black}{A minuscule amount of travel is acceptable for through-hole electromechanical components such as battery holders, headers, and switches. Vibrating or unstable components should be soldered again.}
 	\color{IEEE-red}{\item \textbf{A resistor or capacitor has cracked or separated from the PCB:}} \color{black}{Disconnect the batteries immediately, remove any component fragments and residual solder, and solder on a replacement component.}
 	\color{IEEE-red}{\item \textbf{One of the eight DIP switches is stuck:}} \color{black}{A small force is needed to toggle a DIP switch normally. If a switch becomes stuck in position, attempt to coax a change with a pair of pliers. Replace the component if necessary.}
 	\color{IEEE-red}{\item \textbf{LEDs for \textit{A} and \textit{B} change but not for \textit{S}:}} \color{black}{Check that the orientation of the LEDs is correct. Look for imperfect connections between the pins of the 74HC283 IC and the pads underneath.}
-	\color{IEEE-red}{\item \textbf{Component smokes or catches fire:}} \color{black}{Extinguish any flames and abide by proper fire containment protocol for your facility. Inspect the board for damage and remove any charred or ruined components. Replace and repair if possible.}
-	\color{IEEE-red}{\item \textbf{Linear regulator becomes burning hot:}} \color{black}{Linear regulators are normally low-efficiency devices that produce substantial heat. If the linear regulator IC becomes burning hot to the touch, this is a sign of overloading or a short circuit. Disconnect the batteries immediately, and use an ohmmeter to check for a low-resistance connection between \textit{VCC} and \textit{GND}. If a short circuit or near short circuit exists between power and ground, remove components incrementally to identify the location of the bad connection. Repair if possible.}
+	\color{IEEE-red}{\item \textbf{Component smokes or catches fire:}} \color{black}{In this highly unlikely scenario, extinguish any flames and abide by proper fire containment protocol for your facility. Inspect the board for damage and remove any charred or ruined components. Replace and repair if possible. Document all observations and report to board designer, Kyle Rakos.}
+	\color{IEEE-red}{\item \textbf{Linear regulator becomes burning hot:}} \color{black}{Linear regulators are low-efficiency devices that produce moderate heat under normal conditions. If the linear regulator IC becomes burning hot to the touch, this is a sign of overloading or a short circuit. Disconnect the batteries immediately, and use an ohmmeter to check for a low-resistance connection between \textit{VCC} and \textit{GND} or between \textit{3.3V} and \textit{GND}. If a low resistance is found, follow the steps in the first bullet point. Make feasible repairs as needed.}
 \end{itemize}
 
 
-\section*{Aknowledgements}
+\section*{Acknowledgements}
 Kyle Rakos (\href{mailto:rakoskr6@gmail.com}{rakoskr6@gmail.com}) for designing this printed circuit board for soldering instruction
 
 Justin Joco (\href{mailto:jjoco@purdue.edu}{jjoco@purdue.edu}) for his organization of the IEEE Learning Committee that enables workshops on soldering and other employable skills
