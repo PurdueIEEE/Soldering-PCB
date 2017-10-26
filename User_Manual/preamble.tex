@@ -1,0 +1,74 @@
+\usepackage{geometry}
+\geometry{letterpaper, top=0.8in, left=0.8in, right=0.8in, bottom=0.8in}
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx, xcolor}
+\usepackage{amssymb, amsthm, amsmath}
+\usepackage{hyperref, url}
+\usepackage{caption, sectsty}
+\usepackage{listings}
+\usepackage{multirow}
+%\usepackage[numbered, framed]{mcode}	% Thanks to Florian Knorn (florian@knorn.org)
+
+\definecolor{IEEE-blue}{HTML}{006699}
+\definecolor{IEEE-red}{HTML}{CC0033}
+\definecolor{IEEE-orange}{HTML}{E37222}
+\definecolor{IEEE-yellow}{HTML}{FFCC33}
+\definecolor{IEEE-lime}{HTML}{66CC33}
+\definecolor{IEEE-green}{HTML}{008542}
+\definecolor{IEEE-cyan}{HTML}{009FDA}
+\definecolor{IEEE-purple}{HTML}{6B1F73}
+\hypersetup{colorlinks=true,linkbordercolor=IEEE-blue,linkcolor=IEEE-blue,citecolor=IEEE-lime,urlcolor=IEEE-cyan,pdfborderstyle={/S/U/W 1}}
+\allsectionsfont{\color{IEEE-blue}}
+\captionfont{\color{IEEE-lime}}
+\captionlabelfont{\color{IEEE-lime}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{#1}}
+\makeatother							% Redefinition of matrix to include augmented matrices
+
+\makeatletter
+\def\@maketitle
+{
+	\newpage
+	\null
+	\vskip 1.5em
+	\begin{center}
+		\includegraphics[width=0.25\textwidth]{ieee_mb_blue_4c}
+		\vskip 2.0em
+		\let \footnote \thanks
+		{
+			\LARGE
+			\textbf{\@title}
+			\par
+		}
+		\vskip 0.5em
+		{
+			\large
+			\lineskip .5em
+			\begin{tabular}[t]{c}
+				\@author
+			\end{tabular}
+			\par
+		}
+		\vskip 0.5em
+		{
+			\large
+			\@date
+		}
+	\end{center}
+	\par
+	\vskip 1.0em
+}
+\makeatother
+
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+\renewcommand{\vec}[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand{\vecalt}[1]{\boldsymbol{#1}}
+
+\newcommand{\conj}[1]{\overline{#1}}
+
+\renewcommand{\qed}{\hfill\blacksquare}
+\allowdisplaybreaks
