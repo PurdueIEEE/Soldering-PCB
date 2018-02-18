@@ -2,8 +2,10 @@
 a 4-bit adder used as a soldering practice pcb
 
 
+Changes to be done for v2
+- Update manual
 
-Changes to be made for v2
+Changes already made in v2 (or decided not to be made)
 - ~~Ensure no vias to different signals close to soldering points (i.e. the one by the 9V lines)~~
 - ~~Make 9V holes bigger~~
 - ~~Consider making resistor pads a tad larger~~

@@ -3769,11 +3769,11 @@ High-power, low thermal resistance package.</description>
 <errors>
 <approved hash="104,1,25.4,86.36,U$7,-,GND,,,"/>
 <approved hash="104,1,25.4,96.52,U$7,+,VCC,,,"/>
-<approved hash="113,1,104.462,69.85,S0,,,,,"/>
-<approved hash="113,1,122.242,69.85,S1,,,,,"/>
-<approved hash="113,1,137.482,69.85,S2,,,,,"/>
-<approved hash="113,1,152.722,69.85,S3,,,,,"/>
-<approved hash="113,1,167.962,69.85,COUT,,,,,"/>
+<approved hash="113,1,104.462,77.47,S0,,,,,"/>
+<approved hash="113,1,122.242,77.47,S1,,,,,"/>
+<approved hash="113,1,137.482,77.47,S2,,,,,"/>
+<approved hash="113,1,152.722,77.47,S3,,,,,"/>
+<approved hash="113,1,167.962,77.47,COUT,,,,,"/>
 <approved hash="113,1,-58.42,30.7061,SW1,,,,,"/>
 <approved hash="113,1,-3.81,56.2017,B3,,,,,"/>
 <approved hash="113,1,-3.81,48.5817,B2,,,,,"/>
